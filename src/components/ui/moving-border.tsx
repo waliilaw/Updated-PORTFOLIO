@@ -84,7 +84,7 @@ export function Button<T extends React.ElementType = 'button'>({
 
 export const MovingBorder = ({
   children,
-  duration = 1800,
+  duration = 3000,
   rx,
   ry,
   style,

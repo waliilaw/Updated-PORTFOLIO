@@ -2,7 +2,7 @@
 import { cn } from "@/lib/utils"
 import type React from "react"
 import type { ReactNode } from "react"
-import { useCallback } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 interface AuroraBackgroundProps extends React.HTMLProps<HTMLDivElement> {
   children: ReactNode
@@ -15,6 +15,17 @@ export const AuroraBackground = ({
   showRadialGradient = true,
   ...props
 }: AuroraBackgroundProps) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const gradientClasses = useCallback(() =>
     cn(
       `
@@ -29,17 +40,17 @@ export const AuroraBackground = ({
       after:content-[""] after:absolute after:inset-0 after:[background-image:var(--white-gradient),var(--aurora)] 
       after:dark:[background-image:var(--dark-gradient),var(--aurora)]
       after:[background-size:200%,_100%] 
-      after:animate-aurora after:[background-attachment:fixed] after:mix-blend-difference
+      ${!isMobile ? 'after:animate-aurora' : ''} 
+      after:[background-attachment:fixed] after:mix-blend-difference
       pointer-events-none
-      absolute -inset-[10px] opacity-50 will-change-transform`,
-
+      absolute -inset-[10px] opacity-50`,
       showRadialGradient && `[mask-image:radial-gradient(ellipse_at_100%_0%,black_10%,var(--transparent)_70%)]`
-    ), [showRadialGradient]);
+    ), [showRadialGradient, isMobile]);
 
   return (
     <main>
       <div className={cn("bg-black transition-bg", className)} {...props}>
-        <div className="overflow-hidden opacity-30">
+        <div className={cn("overflow-hidden", isMobile ? "opacity-20" : "opacity-30")}>
           <div className={gradientClasses()}></div>
         </div>
         {children}

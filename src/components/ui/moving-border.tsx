@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import {
   motion,
   useAnimationFrame,
@@ -7,7 +7,6 @@ import {
   useMotionValue,
   useTransform,
 } from "framer-motion";
-import { useRef } from "react";
 import { cn } from "@/lib/utils";
 
 type ButtonProps<T extends React.ElementType = 'button'> = {
@@ -94,24 +93,17 @@ export const MovingBorder = ({
   const progress = useMotionValue<number>(0);
 
   useAnimationFrame((time) => {
+
     
     const length = pathRef.current?.getTotalLength();
     if (length) {
-      const pxPerMillisecond = length / duration;
+      const pxPerMillisecond = length / (duration * (typeof window !== 'undefined' && window.innerWidth < 768 ? 1.5 : 1));
       progress.set((time * pxPerMillisecond) % length);
     }
   });
 
-  const x = useTransform(
-    progress,
-    (val) => pathRef.current?.getPointAtLength(val).x
-  );
-  const y = useTransform(
-    progress,
-    (val) => pathRef.current?.getPointAtLength(val).y
-  );
-
-  const transform = useMotionTemplate`translateX(${x}px) translateY(${y}px) translateX(-50%) translateY(-50%)`;
+  const x = useTransform(progress, (val) => pathRef.current?.getPointAtLength(val)?.x ?? 0);
+  const y = useTransform(progress, (val) => pathRef.current?.getPointAtLength(val)?.y ?? 0);
 
   return (
     <>
@@ -121,6 +113,7 @@ export const MovingBorder = ({
         className="absolute h-full w-full"
         width="100%"
         height="100%"
+        style={{ willChange: 'transform' }}
       >
         <rect
           fill="none"
@@ -137,7 +130,8 @@ export const MovingBorder = ({
           top: 0,
           left: 0,
           display: "inline-block",
-          transform,
+          transform: useMotionTemplate`translateX(${x}px) translateY(${y}px) translateX(-50%) translateY(-50%)`,
+          willChange: "transform",
           ...style,
         }}
         className={className}

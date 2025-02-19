@@ -10,6 +10,17 @@ import {
 import { useRef } from "react";
 import { cn } from "@/lib/utils";
 
+type ButtonProps = {
+  borderRadius?: string;
+  children: React.ReactNode;
+  as?: keyof JSX.IntrinsicElements;
+  containerClassName?: string;
+  borderClassName?: string;
+  duration?: number;
+  className?: string;
+  [key: string]: any;
+};
+
 export function Button({
   borderRadius = "1.75rem",
   children,
@@ -19,20 +30,11 @@ export function Button({
   duration,
   className,
   ...otherProps
-}: {
-  borderRadius?: string;
-  children: React.ReactNode;
-  as?: any;
-  containerClassName?: string;
-  borderClassName?: string;
-  duration?: number;
-  className?: string;
-  [key: string]: any;
-}) {
+}: ButtonProps) {
   return (
     <Component
       className={cn(
-        "bg-transparent relative text-xl  h-16 w-40 p-[2px] overflow-hidden ",
+        "bg-transparent relative text-xl h-16 w-40 p-[2px] overflow-hidden",
         containerClassName
       )}
       style={{
@@ -56,7 +58,7 @@ export function Button({
 
       <div
         className={cn(
-          "relative bg-slate-900/[0.8] border border-slate-800 backdrop-blur-xl text-white flex items-center justify-center w-full h-full text-sm antialiased  ",
+          "relative bg-slate-900/[0.8] border border-slate-800 backdrop-blur-xl text-white flex items-center justify-center w-full h-full text-sm antialiased",
           className
         )}
         style={{
@@ -66,8 +68,9 @@ export function Button({
         {children}
       </div>
     </Component>
-  )
+  );
 }
+
 export const MovingBorder = ({
   children,
   duration = 1800,

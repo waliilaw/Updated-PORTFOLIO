@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef} from "react";
 import {
   motion,
   useAnimationFrame,
@@ -59,7 +59,7 @@ export function Button<T extends React.ElementType = 'button'>({
         <MovingBorder duration={duration} rx="30%" ry="30%">
           <div
             className={cn(
-              "h-24 w-24 opacity-[1] bg-[radial-gradient(var(--orange)_40%,transparent_60%)]",
+              "h-32 w-32 opacity-[1] bg-[radial-gradient(var(--orange)_40%,transparent_60%)]",
               borderClassName
             )}
           />

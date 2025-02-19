@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FaGithub } from "react-icons/fa";
+import Image from 'next/image';
 
 type ProjectColor = 'red' | 'pink' | 'orange';
 
@@ -77,9 +78,11 @@ export function Projec() {
             
             {/* Content */}
             <div className="relative z-20 ">
-              <img 
+              <Image 
                 src={project.image} 
                 alt={project.title} 
+                width={800}
+                height={400}
                 className="w-full h-64 object-cover rounded-lg mb-4"
               />
               <h3 className="text-xl font-bold text-white mb-2">{project.title}</h3>

@@ -1,6 +1,5 @@
 "use client";
 import { useParams } from "next/navigation";
-import { AuroraBackground } from "@/components/ui/aurora-background";
 import { Navbar } from "@/components/Navbar";
 import { Back } from "@/components/Back";
 import Image from 'next/image';
@@ -10,7 +9,7 @@ export default function BlogPost() {
   console.log("Blog ID:", params.id); // Use the id parameter
 
   return (
-<>
+    <div className="min-h-screen w-screen bg-black relative overflow-hidden">
       <Navbar />
       <Back />
       <div className="flex flex-col items-center justify-center min-h-screen gap-8">
@@ -23,6 +22,6 @@ export default function BlogPost() {
           className="rounded-lg shadow-lg"
         />
       </div>
-    </>
+    </div>
   );
 }

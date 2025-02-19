@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
 
-import { Github, Instagram, Twitter } from "lucide-react";
+import { Github, Instagram } from "lucide-react";
 import { SiLeetcode } from "react-icons/si";
+import { FaLinkedin } from "react-icons/fa";
 
 export function Navbar() {
   return (
@@ -48,11 +49,11 @@ export function Navbar() {
             </Link>
 
             <Link
-              href="https://twitter.com/waliilaww"
+              href="https://linkedin.com/in/humaidwali20"
               target="_blank"
               className="text-white hover:text-orange-400 transition-all duration-300 hover:scale-110 relative group"
             >
-              <Twitter className="w-6 h-6" />
+              <FaLinkedin className="w-6 h-6" />
               <span className="absolute -inset-2 bg-orange-500/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </Link>
           </div>

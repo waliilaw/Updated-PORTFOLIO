@@ -1,4 +1,5 @@
 "use client";
+import { Suspense } from "react";
 // import Image from "next/image";
 import { Header } from "@/components/Header";
 import { Buttons } from "@/components/Buttons";
@@ -7,33 +8,29 @@ import { AuroraBackground } from "@/components/ui/aurora-background";
 import { Navbar } from "@/components/Navbar";
 import { Stacks } from "@/components/Stacks";
 import { BlogGrid } from "@/components/BlogGrid";
-import LoadingSpinner from "@/components/LoadingSpinner";
-import { useState, useEffect } from "react";
+import dynamic from 'next/dynamic';
 import { Analytics } from "@vercel/analytics/react"
 
+const LoadingSpinner = dynamic(() => import('@/components/LoadingSpinner'), {
+  ssr: false
+});
+
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => setIsLoading(false), 1000);
-  }, []);
-
-  if (isLoading) return <LoadingSpinner />;
-
   return (
     <AuroraBackground className="min-h-screen w-screen">
       <Navbar />
-      <Back />
-      {/* Header Section */}
-      <header className="pb-20 flex flex-col items-center justify-center min-h-screen">
-        <Header />
-        <p className="mt-0 px-11 max-w-3xl text-center text-lg font-bold text-white pt-5">
-          I am a Full Stack Web Developer - For FRONTEND: HTML, CSS, JS, React, Tailwind, Next.js - For BACKEND: Node.js, Express, MongoDB, Prisma, PostgreSQL, Firebase - For Deployments: AWS, Vercel, Railway, Cloudflare - Meanwhile, I do DSA & Leetcode - Currently, I am learning Solidity and diving more into the field of the Web3(this Portfolio is made using Next.js)
-        </p>
-        <div className="mt-24 pt-4">
-          <Buttons />
-        </div>
-      </header>
+      <Suspense fallback={<LoadingSpinner />}>
+        <Back />
+        <header className="pb-20 flex flex-col items-center justify-center min-h-screen">
+          <Header />
+          <p className="mt-0 px-11 max-w-3xl text-center text-lg font-bold text-white pt-5">
+            I am a Full Stack Web Developer - For FRONTEND: HTML, CSS, JS, React, Tailwind, Next.js - For BACKEND: Node.js, Express, MongoDB, Prisma, PostgreSQL, Firebase - For Deployments: AWS, Vercel, Railway, Cloudflare - Meanwhile, I do DSA & Leetcode - Currently, I am learning Solidity and diving more into the field of the Web3(this Portfolio is made using Next.js)
+          </p>
+          <div className="mt-24 pt-4">
+            <Buttons />
+          </div>
+        </header>
+      </Suspense>
 
       {/* Stacks Section */}
       <section className="py-0 text-center text-white">

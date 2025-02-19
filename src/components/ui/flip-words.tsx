@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState, memo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-const FlipWordsComponent = ({
+export const FlipWords = memo(({
   words,
   duration = 500,
   className,
@@ -95,8 +95,4 @@ const FlipWordsComponent = ({
       </motion.div>
     </AnimatePresence>
   );
-};
-
-FlipWordsComponent.displayName = 'FlipWords';
-
-export const FlipWords = memo(FlipWordsComponent);
+});

@@ -1,4 +1,6 @@
+"use client";
 import Link from "next/link";
+
 import { Github, Instagram, Twitter } from "lucide-react";
 import { SiLeetcode } from "react-icons/si";
 

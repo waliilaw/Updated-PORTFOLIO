@@ -1,10 +1,9 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
-import { AnimatePresence, motion} from "framer-motion";
+import React, { useCallback, useEffect, useState, memo } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-
-export const FlipWords = ({
+export const FlipWords = memo(({
   words,
   duration = 500,
   className,
@@ -16,7 +15,6 @@ export const FlipWords = ({
   const [currentWord, setCurrentWord] = useState(words[0]);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
 
-
   const startAnimation = useCallback(() => {
     const word = words[words.indexOf(currentWord) + 1] || words[0];
     setCurrentWord(word);
@@ -24,10 +22,11 @@ export const FlipWords = ({
   }, [currentWord, words]);
 
   useEffect(() => {
-    if (!isAnimating)
-      setTimeout(() => {
-        startAnimation();
-      }, duration);
+    let timeoutId: NodeJS.Timeout;
+    if (!isAnimating) {
+      timeoutId = setTimeout(startAnimation, duration);
+    }
+    return () => clearTimeout(timeoutId);
   }, [isAnimating, duration, startAnimation]);
 
   return (
@@ -96,4 +95,4 @@ export const FlipWords = ({
       </motion.div>
     </AnimatePresence>
   );
-};
+});

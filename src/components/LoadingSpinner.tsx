@@ -1,7 +1,15 @@
+import Image from 'next/image';
+
 export default function LoadingSpinner() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-black">
-      <img src="/loading.png" alt="Loading" className="w-32 h-32 animate-spin" />
+      <Image 
+        src="/loading.png" 
+        alt="Loading" 
+        width={128} 
+        height={128} 
+        className="animate-spin" 
+      />
     </div>
   );
 } 

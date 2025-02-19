@@ -14,6 +14,10 @@ export function Header() {
           <FlipWords words={words} />
         </span>
         <br />
+
+        <h1 className="text-4xl font-bold text-white mb-4">
+          Let&apos;s build something amazing together!
+        </h1>
       </div>
     </div>
   );

@@ -10,17 +10,17 @@ import {
 import { useRef } from "react";
 import { cn } from "@/lib/utils";
 
-type ButtonProps = {
+type ButtonProps<T extends React.ElementType = 'button'> = {
   borderRadius?: string;
   children: React.ReactNode;
-  as?: keyof JSX.IntrinsicElements;
+  as?: T;
   containerClassName?: string;
   borderClassName?: string;
   duration?: number;
   className?: string;
   onClick?: () => void;
   style?: React.CSSProperties;
-};
+} & React.ComponentPropsWithoutRef<T>;
 
 type MovingBorderProps = {
   children: React.ReactNode;
@@ -31,16 +31,17 @@ type MovingBorderProps = {
   className?: string;
 };
 
-export function Button({
+export function Button<T extends React.ElementType = 'button'>({
   borderRadius = "1.75rem",
   children,
-  as: Component = "button",
+  as,
   containerClassName,
   borderClassName,
   duration,
   className,
   ...otherProps
-}: ButtonProps) {
+}: ButtonProps<T>) {
+  const Component = as || 'button';
   return (
     <Component
       className={cn(

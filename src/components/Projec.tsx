@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaGithub } from "react-icons/fa";
 import Image from 'next/image';
+import { usePerformanceMode } from "@/hooks/usePerformanceMode";
 
 type ProjectColor = 'red' | 'pink' | 'orange';
 
@@ -26,7 +27,7 @@ const projectStyles = {
 };
 
 export function Projec() {
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const isLowPerformance = usePerformanceMode();
 
   const projects = [
     {
@@ -64,20 +65,22 @@ export function Projec() {
         <div
           key={index}
           className="relative group w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.33%-2rem)]"
-          onMouseEnter={() => setHoveredCard(index)}
-          onMouseLeave={() => setHoveredCard(null)}
         >
-          <div className="absolute -inset-[1px] bg-white/5 rounded-lg" />
-          <div className="absolute -inset-[1px] bg-gradient-to-r" />
-          
           {/* Project Card */}
-          <div className={`relative h-full w-full bg-black/20 backdrop-blur-sm rounded-lg transition duration-300 p-6 ${hoveredCard !== null && hoveredCard !== index ? 'blur-sm' : ''}`}>
-            {/* Hover border effect */}
-            <div className={`absolute -inset-[1.5px] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${projectStyles[project.tagColor].hover}`} />
-            <div className="absolute -inset-[1px] bg-black rounded-lg z-[11]" />
+          <div className={`relative h-full w-full bg-black/20 rounded-lg p-6
+            ${!isLowPerformance ? 'backdrop-blur-sm group-hover:scale-[1.02] transition-transform duration-300' : 'group-hover:scale-[1.01] transition-transform duration-300'}`}>
+            
+            {/* Hover effect - simplified for low performance */}
+            <div className={`absolute -inset-[1.5px] rounded-lg opacity-0 group-hover:opacity-100 
+              transition-opacity duration-300 ${
+                isLowPerformance 
+                  ? `border-2 ${projectStyles[project.tagColor].border}` 
+                  : projectStyles[project.tagColor].hover
+              }`} 
+            />
             
             {/* Content */}
-            <div className="relative z-20 ">
+            <div className="relative z-20">
               <Image 
                 src={project.image} 
                 alt={project.title} 
@@ -91,7 +94,8 @@ export function Projec() {
               {/* Links */}
               <div className="flex items-center gap-4 mb-4">
                 {project.liveLink && (
-                  <a className={`text-white transition-colors border-2 ${projectStyles[project.tagColor].border} p-2 rounded-full`}>
+                  <a href={project.liveLink} target="_blank" rel="noopener noreferrer"
+                     className={`text-white transition-colors border-2 ${projectStyles[project.tagColor].border} p-2 rounded-full`}>
                     Live Demo
                   </a>
                 )}
@@ -115,8 +119,15 @@ export function Projec() {
             </div>
           </div>
 
-          {/* Outer glow effect */}
-          <div className={`absolute -inset-2 border-2 ${projectStyles[project.tagColor].border} border-t-0 border-l-0 rounded-lg opacity-0 group-hover:opacity-100 ${projectStyles[project.tagColor].glow} transition-opacity duration-500 pointer-events-none`} />
+          {/* Glow effect - simplified for low performance */}
+          <div className={`absolute -inset-2 rounded-lg opacity-0 group-hover:opacity-100 
+            transition-opacity duration-500 pointer-events-none ${
+              isLowPerformance 
+                ? `border ${projectStyles[project.tagColor].border}` 
+                : `border-2 ${projectStyles[project.tagColor].border} 
+                    border-t-0 border-l-0 ${projectStyles[project.tagColor].glow}`
+            }`} 
+          />
         </div>
       ))}
     </div>

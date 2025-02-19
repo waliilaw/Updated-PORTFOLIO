@@ -70,6 +70,11 @@ export default {
         orbit: "orbit calc(var(--duration)*1s) linear infinite",
         aurora: "aurora 30s linear infinite",
       },
+      willChange: {
+        'transform': 'transform',
+        'opacity': 'opacity',
+        'filter': 'filter'
+      },
       keyframes: {
         orbit: {
           "0%": {

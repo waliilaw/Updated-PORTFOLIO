@@ -68,7 +68,7 @@ export default {
       },
       animation: {
         orbit: "orbit calc(var(--duration)*1s) linear infinite",
-        aurora: "aurora 30s linear infinite",
+        aurora: "aurora 60s linear infinite",
       },
       willChange: {
         'transform': 'transform',

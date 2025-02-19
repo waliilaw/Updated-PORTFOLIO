@@ -11,7 +11,7 @@ export const Header = memo(function Header() {
           Hi! I&apos;m Wali
         </span>
         <br />
-        <span className="flex justify-center items-center text-6xl font-bold text-white p-6">
+        <span className="flex justify-center items-center text-6xl font-bold text-white p-6 mt-6">
           <FlipWords words={words} />
         </span>
         <br />

@@ -2,6 +2,7 @@
 import React, { useCallback, useEffect, useState, memo } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { usePerformanceMode } from "@/hooks/usePerformanceMode";
 
 const FlipWordsComponent = ({
   words,
@@ -14,6 +15,7 @@ const FlipWordsComponent = ({
 }) => {
   const [currentWord, setCurrentWord] = useState(words[0]);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
+  const isLowPerformance = usePerformanceMode();
 
   const startAnimation = useCallback(() => {
     const word = words[words.indexOf(currentWord) + 1] || words[0];
@@ -36,18 +38,12 @@ const FlipWordsComponent = ({
       }}
     >
       <motion.div
-        initial={{
-          opacity: 0,
-          y: 10,
-        }}
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{
           type: "spring",
-          stiffness: 100,
-          damping: 10,
+          stiffness: isLowPerformance ? 50 : 100,
+          damping: isLowPerformance ? 15 : 10,
         }}
         exit={{
           opacity: 0,
@@ -63,35 +59,40 @@ const FlipWordsComponent = ({
         )}
         key={currentWord}
       >
-        {/* edit suggested by Sajal: https://x.com/DewanganSajal */}
-        {currentWord.split(" ").map((word, wordIndex) => (
-          <motion.span
-            key={word + wordIndex}
-            initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{
-              delay: wordIndex * 0.3,
-              duration: 0.3,
-            }}
-            className="inline-block whitespace-nowrap"
-          >
-            {word.split("").map((letter, letterIndex) => (
-              <motion.span
-                key={word + letterIndex}
-                initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{
-                  delay: wordIndex * 0.3 + letterIndex * 0.05,
-                  duration: 0.2,
-                }}
-                className="inline-block"
-              >
-                {letter}
-              </motion.span>
-            ))}
-            <span className="inline-block">&nbsp;</span>
-          </motion.span>
-        ))}
+        {isLowPerformance ? (
+          // Simple animation for mobile
+          <span className="inline-block whitespace-nowrap">{currentWord}</span>
+        ) : (
+          // Full animation for desktop
+          currentWord.split(" ").map((word, wordIndex) => (
+            <motion.span
+              key={word + wordIndex}
+              initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{
+                delay: wordIndex * 0.3,
+                duration: 0.3,
+              }}
+              className="inline-block whitespace-nowrap"
+            >
+              {word.split("").map((letter, letterIndex) => (
+                <motion.span
+                  key={word + letterIndex}
+                  initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  transition={{
+                    delay: wordIndex * 0.3 + letterIndex * 0.05,
+                    duration: 0.2,
+                  }}
+                  className="inline-block"
+                >
+                  {letter}
+                </motion.span>
+              ))}
+              <span className="inline-block">&nbsp;</span>
+            </motion.span>
+          ))
+        )}
       </motion.div>
     </AnimatePresence>
   );

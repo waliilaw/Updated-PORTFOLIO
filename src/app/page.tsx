@@ -23,7 +23,7 @@ export default function Home() {
         <Back />
         <header className="pb-20 flex flex-col items-center justify-center min-h-screen">
           <Header />
-          <p className="mt-0 px-11 max-w-3xl text-center text-lg font-bold text-white pt-5">
+          <p className="mt-0 px-11 max-w-3xl text-center text-lg font-bold text-white pt-1">
             I am a Full Stack Web Developer - For FRONTEND: HTML, CSS, JS, React, Tailwind, Next.js - For BACKEND: Node.js, Express, MongoDB, Prisma, PostgreSQL, Firebase - For Deployments: AWS, Vercel, Railway, Cloudflare - Meanwhile, I do DSA & Leetcode - Currently, I am learning Solidity and diving more into the field of the Web3(this Portfolio is made using Next.js)
           </p>
           <div className="mt-24 pt-4">

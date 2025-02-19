@@ -1,5 +1,4 @@
 "use client";
-import { AuroraBackground } from "@/components/ui/aurora-background";
 import { Back } from "@/components/Back";
 import { Navbar } from "@/components/Navbar";
 import { Projec } from "@/components/Projec";
@@ -16,10 +15,13 @@ export default function Projects() {
   if (isLoading) return <LoadingSpinner />;
 
   return (
-    <AuroraBackground className="min-h-screen w-screen">
+    <div className="min-h-screen w-screen bg-black relative overflow-hidden">
+      {/* Simple light beam */}
+      <div className="absolute top-0 inset-x-0 h-[40vh] bg-gradient-to-b from-orange-500/10 via-orange-400/5 to-transparent" />
+      
       <Navbar />
       <Back />
-      <section className="py-20 text-center text-white">
+      <section className="py-20 text-center text-white relative z-10">
         <div className="relative inline-block">
           <h2 className="text-6xl font-bold pb-4 pt-10 relative">
             Projects
@@ -33,6 +35,6 @@ export default function Projects() {
         </div>
         <Projec />
       </section>
-    </AuroraBackground>
+    </div>
   );
 } 

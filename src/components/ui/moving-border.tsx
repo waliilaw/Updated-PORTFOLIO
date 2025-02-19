@@ -39,8 +39,6 @@ export function Button({
   borderClassName,
   duration,
   className,
-  onClick,
-  style,
   ...otherProps
 }: ButtonProps) {
   return (

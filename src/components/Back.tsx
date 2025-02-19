@@ -15,6 +15,7 @@ export function Back() {
           duration: 0.8,
           ease: "easeInOut",
         }}
+        style={{ willChange: "transform, opacity" }}
         className="relative flex flex-col gap-4 items-center justify-center px-4"
       >
       </motion.div>

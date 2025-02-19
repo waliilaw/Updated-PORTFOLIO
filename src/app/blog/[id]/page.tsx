@@ -10,7 +10,7 @@ export default function BlogPost() {
   console.log("Blog ID:", params.id); // Use the id parameter
 
   return (
-    <AuroraBackground className="min-h-screen w-screen">
+<>
       <Navbar />
       <Back />
       <div className="flex flex-col items-center justify-center min-h-screen gap-8">
@@ -23,6 +23,6 @@ export default function BlogPost() {
           className="rounded-lg shadow-lg"
         />
       </div>
-    </AuroraBackground>
+    </>
   );
 }

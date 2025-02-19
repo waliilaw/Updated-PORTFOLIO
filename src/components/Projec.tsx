@@ -1,4 +1,4 @@
-import { useState } from "react";
+"use client"
 import { FaGithub } from "react-icons/fa";
 import Image from 'next/image';
 import { usePerformanceMode } from "@/hooks/usePerformanceMode";

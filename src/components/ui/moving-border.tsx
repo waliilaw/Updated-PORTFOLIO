@@ -18,7 +18,17 @@ type ButtonProps = {
   borderClassName?: string;
   duration?: number;
   className?: string;
-  [key: string]: any;
+  onClick?: () => void;
+  style?: React.CSSProperties;
+};
+
+type MovingBorderProps = {
+  children: React.ReactNode;
+  duration?: number;
+  rx?: string;
+  ry?: string;
+  style?: React.CSSProperties;
+  className?: string;
 };
 
 export function Button({
@@ -29,6 +39,8 @@ export function Button({
   borderClassName,
   duration,
   className,
+  onClick,
+  style,
   ...otherProps
 }: ButtonProps) {
   return (
@@ -76,14 +88,9 @@ export const MovingBorder = ({
   duration = 1800,
   rx,
   ry,
-  ...otherProps
-}: {
-  children: React.ReactNode;
-  duration?: number;
-  rx?: string;
-  ry?: string;
-  [key: string]: any;
-}) => {
+  style,
+  className,
+}: MovingBorderProps) => {
   const pathRef = useRef<SVGRectElement>(null);
   const progress = useMotionValue<number>(0);
 
@@ -114,7 +121,6 @@ export const MovingBorder = ({
         className="absolute h-full w-full"
         width="100%"
         height="100%"
-        {...otherProps}
       >
         <rect
           fill="none"
@@ -132,7 +138,9 @@ export const MovingBorder = ({
           left: 0,
           display: "inline-block",
           transform,
+          ...style,
         }}
+        className={className}
       >
         {children}
       </motion.div>

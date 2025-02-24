@@ -43,7 +43,7 @@ export function Projec() {
       title: "Kagura",
       description: "A Real-time Chat React App with Cloudinary Image Upload and Authentication and Socket.io for real-time chat, and More AI feature soon to be added",
       image: "/kagura.jpg",
-      liveLink: "https://Valentino.waliilaw.me",
+      liveLink: "https://redranger.me",
       github: "https://github.com/waliilaw/Kagura",
       tags: ["React", "Socket.io", "TypeScript"],
       tagColor: 'orange' as ProjectColor
@@ -52,7 +52,7 @@ export function Projec() {
       title: "Red Ranger",
       description: "Use Twitter's API to allow users to fetch their profile details (e.g., username, profile picture) by entering their X username. This information can be used to assign a Ranger to the user.",
       image: "/rangers.jpg",
-      liveLink: "https://Valentino.waliilaw.me",
+      liveLink: "https://redranger.me",
       github: "https://github.com/waliilaw/Power-Rangers-FRONTEND--PUBLIC",
       tags: ["React", "Kinde", "TypeScript", "ShadCN"],
       tagColor: 'red' as ProjectColor
